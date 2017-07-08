@@ -1,68 +1,94 @@
-(function(){
 
-    var $q    = $injector.get('$q');
-    var defer = $q.defer();
 
-    // Chrome
-    if (this.chrome()) {
+class Browser {
+    static isAnonymous(){
 
-        var fs = window.RequestFileSystem || window.webkitRequestFileSystem;
+        // Chrome
+        if (isChrome()) {
 
-        fs(window.TEMPORARY, 100, function() {
-                defer.resolve(false);
-            },
-            function() {
-                defer.resolve(true);
-            });
-    }
+            var fs = window.RequestFileSystem || window.webkitRequestFileSystem;
 
-    // Firefox
-    if (this.firefox()) {
-
-        var db;
-
-        try {
-            db = window.indexedDB.open('test');
-        } catch (e) {
-            defer.resolve(true);
+            fs(window.TEMPORARY, 100, function() {
+                    return false;
+                },
+                function() {
+                    return true;
+                });
         }
 
-        if (db.readyState === 'done') {
-            defer.resolve(!db.result);
-        }
+        // Firefox
+        if (isFirefox()) {
 
-        defer.resolve(false);
+            var db;
 
-    }
-
-    // IE
-    if (this.ie() || this.edge()) {
-
-        try {
-            if (!window.indexedDB) {
-                defer.resolve(true);
+            try {
+                db = window.indexedDB.open('test');
+            } catch (e) {
+                return true;
             }
-        } catch (e) {
-            defer.resolve(true);
+
+            if (db.readyState === 'done') {
+                return (!db.result);
+            }
+
+            return false;
+
         }
 
-        defer.resolve(false);
+        // IE
+        if (isIE() || isEdge()) {
 
-    }
+            try {
+                if (!window.indexedDB) {
+                    return true;
+                }
+            } catch (e) {
+                return true;
+            }
 
-    // Safari
-    if (this.safari()) {
+            return false;
 
-        try {
-            window.localStorage.setItem('test', true);
-        } catch (e) {
-            defer.resolve(true);
         }
 
-        defer.resolve(false);
+        // Safari
+        if (isSafari()) {
+
+            try {
+                window.localStorage.setItem('test', true);
+            } catch (e) {
+                return true;
+            }
+
+            return false;
+
+        }
 
     }
+}
 
-    return defer.promise;
+//https://stackoverflow.com/questions/9847580/how-to-detect-safari-chrome-ie-firefox-and-opera-browser
+function isOpera() {
+    return (!!window.opr && !!opr.addons) || !!window.opera || navigator.userAgent.indexOf(' OPR/') >= 0;
+}
 
-})()
+function isFirefox() {
+    return (typeof InstallTrigger !== 'undefined');
+}
+
+function isSafari() {
+    return (/constructor/i.test(window.HTMLElement)) || (function (p) { return p.toString() === "[object SafariRemoteNotification]"; })(!window['safari'] || safari.pushNotification);
+}
+
+function isIE() {
+    return (false || (!!document.documentMode));
+}
+
+function isEdge() {
+    return (!isIE && !!window.StyleMedia);
+}
+
+function isChrome() {
+    return (!!window.chrome && !!window.chrome.webstore);
+}
+
+//export default Browser;
