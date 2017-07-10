@@ -1,0 +1,22 @@
+{
+  "name": "is-anonymous",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server -o"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chrfreitas/is-anonymous.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chrfreitas/is-anonymous/issues"
+  },
+  "homepage": "https://github.com/chrfreitas/is-anonymous#readme",
+  "dependencies": {
+    "http-server": "^0.10.0"
+  }
+}
