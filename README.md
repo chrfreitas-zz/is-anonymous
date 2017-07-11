@@ -1,6 +1,6 @@
-### Is Anonymous
+## Is Anonymous
 
-Check if your user is using Anonymous/Private browser
+Check if your user's using Anonymous/Private browser.
 
 #### Usage
 
