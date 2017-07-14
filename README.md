@@ -6,4 +6,4 @@ Check if your user's using Anonymous/Private browser.
 
 There is a class named Browser with just one function `isAnonymous`. That function return a Promise.
 
-> Browser.isAnonymous()
+> Browser.isAnonymous(result).then(console.log(result));
