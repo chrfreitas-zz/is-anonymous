@@ -1,9 +1,19 @@
-## Is Anonymous
 
-Check if your user's using Anonymous/Private browser.
+Is Anonymous
+============
 
-### Usage
+Is Anonymous is project to check if the browser is Anonymous/Private browser.
 
-There is a class named Browser with just one function `isAnonymous`. That function return a Promise.
 
-> Browser.isAnonymous(result).then(console.log(result));
+Usage
+------------
+
+It's very simples. See below:
+
+> Browser.isAnonymous(result);
+
+
+License
+------------
+
+MIT License © Christian Freitas
